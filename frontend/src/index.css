@@ -1,0 +1,990 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --binance-yellow: #F0B90B;
+  --binance-yellow-hover: #D4A309;
+  --binance-dark: #0B0E11;
+  --binance-dark-secondary: #181A20;
+  --binance-dark-tertiary: #1E2026;
+  --binance-border: #2B3139;
+  --binance-text-primary: #EAECEF;
+  --binance-text-secondary: #B7BDC6;
+  --binance-text-tertiary: #848E9C;
+  --binance-success: #0ECB81;
+  --binance-error: #F6465D;
+  --binance-info: #F0B90B;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--binance-dark);
+  min-height: 100vh;
+  color: var(--binance-text-primary);
+  line-height: 1.6;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.card {
+  background: var(--binance-dark-secondary);
+  border: 1px solid var(--binance-border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--binance-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: var(--binance-text-primary);
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card h2::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: var(--binance-yellow);
+  border-radius: 2px;
+}
+
+.button {
+  background: var(--binance-yellow);
+  color: var(--binance-dark);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.button:hover {
+  background: var(--binance-yellow-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(240, 185, 11, 0.3);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  background: var(--binance-border);
+  color: var(--binance-text-tertiary);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--binance-yellow);
+  border: 1px solid var(--binance-yellow);
+}
+
+.button-secondary:hover {
+  background: rgba(240, 185, 11, 0.1);
+}
+
+.button-danger {
+  background: var(--binance-error);
+  color: white;
+}
+
+.button-danger:hover {
+  background: #E03A4F;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--binance-dark-tertiary);
+  border: 1px solid var(--binance-border);
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--binance-text-primary);
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--binance-text-tertiary);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--binance-yellow);
+  background: var(--binance-dark-secondary);
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--binance-text-secondary);
+  font-size: 14px;
+}
+
+.status {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  border-left: 4px solid;
+}
+
+.status-success {
+  background: rgba(14, 203, 129, 0.1);
+  color: var(--binance-success);
+  border-left-color: var(--binance-success);
+}
+
+.status-error {
+  background: rgba(246, 70, 93, 0.1);
+  color: var(--binance-error);
+  border-left-color: var(--binance-error);
+}
+
+.status-info {
+  background: rgba(240, 185, 11, 0.1);
+  color: var(--binance-info);
+  border-left-color: var(--binance-info);
+}
+
+/* Old header styles removed - using Hero component instead */
+
+.address-display {
+  background: var(--binance-dark-tertiary);
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-family: monospace;
+  word-break: break-all;
+  margin-bottom: 16px;
+  border: 1px solid var(--binance-border);
+  color: var(--binance-text-primary);
+  font-size: 13px;
+}
+
+.balance-display {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--binance-yellow);
+  margin: 24px 0;
+  text-align: center;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.balance-display::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--binance-yellow);
+  margin: 0 auto 16px;
+  border-radius: 2px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Navigation Bar */
+.navbar {
+  background: var(--binance-dark-secondary);
+  border-bottom: 1px solid var(--binance-border);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--binance-yellow);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-brand::before {
+  content: '₿';
+  font-size: 28px;
+}
+
+/* Wallet Button */
+.wallet-button {
+  background: var(--binance-yellow);
+  color: var(--binance-dark);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wallet-button:hover {
+  background: var(--binance-yellow-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(240, 185, 11, 0.3);
+}
+
+.wallet-button-connected {
+  background: var(--binance-dark-tertiary);
+  color: var(--binance-text-primary);
+  border: 1px solid var(--binance-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wallet-button-connected:hover {
+  background: var(--binance-dark-secondary);
+  border-color: var(--binance-yellow);
+}
+
+.wallet-button-warning {
+  background: var(--binance-error);
+  color: white;
+  font-size: 12px;
+  padding: 8px 16px;
+}
+
+.wallet-button-warning:hover {
+  background: #E03A4F;
+}
+
+/* Language Switcher */
+.language-switcher {
+  display: flex;
+  gap: 4px;
+  margin-right: 16px;
+}
+
+.lang-button {
+  background: var(--binance-dark-tertiary);
+  color: var(--binance-text-secondary);
+  border: 1px solid var(--binance-border);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 40px;
+}
+
+.lang-button:hover {
+  background: var(--binance-dark-secondary);
+  border-color: var(--binance-yellow);
+  color: var(--binance-text-primary);
+}
+
+.lang-button.active {
+  background: var(--binance-yellow);
+  color: var(--binance-dark);
+  border-color: var(--binance-yellow);
+}
+
+.wallet-status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--binance-success);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.wallet-button-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.wallet-button-wrapper {
+  position: relative;
+}
+
+.wallet-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--binance-dark-secondary);
+  border: 1px solid var(--binance-border);
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 280px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.wallet-menu-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.wallet-menu-label {
+  font-size: 12px;
+  color: var(--binance-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wallet-menu-value {
+  font-size: 14px;
+  color: var(--binance-text-primary);
+  font-family: monospace;
+  word-break: break-all;
+}
+
+.wallet-menu-divider {
+  height: 1px;
+  background: var(--binance-border);
+  margin: 12px 0;
+}
+
+.wallet-menu-button {
+  width: 100%;
+  background: transparent;
+  color: var(--binance-error);
+  border: 1px solid var(--binance-error);
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.wallet-menu-button:hover {
+  background: rgba(246, 70, 93, 0.1);
+}
+
+.wallet-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: transparent;
+}
+
+/* Stats Cards */
+.stats-card {
+  background: var(--binance-dark-secondary);
+  border: 1px solid var(--binance-border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.stats-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--binance-yellow);
+  margin-bottom: 8px;
+}
+
+.stats-label {
+  font-size: 14px;
+  color: var(--binance-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+  }
+
+  .header p {
+    font-size: 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .balance-display {
+    font-size: 28px;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--binance-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--binance-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--binance-text-tertiary);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Links */
+a {
+  color: var(--binance-yellow);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--binance-yellow-hover);
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, var(--binance-dark-secondary) 0%, var(--binance-dark-tertiary) 100%);
+  border-bottom: 1px solid var(--binance-border);
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 60px;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(240, 185, 11, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-content {
+  flex: 1;
+  z-index: 1;
+  max-width: 600px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(240, 185, 11, 0.1);
+  border: 1px solid var(--binance-yellow);
+  border-radius: 20px;
+  color: var(--binance-yellow);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.badge-icon {
+  font-size: 18px;
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--binance-text-primary);
+}
+
+.hero-title .highlight {
+  background: linear-gradient(135deg, var(--binance-yellow) 0%, var(--binance-yellow-hover) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: var(--binance-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--binance-yellow);
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--binance-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-visual {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  flex-shrink: 0;
+}
+
+.floating-card {
+  position: absolute;
+  background: var(--binance-dark-secondary);
+  border: 1px solid var(--binance-border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: float 6s ease-in-out infinite;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.card-2 {
+  top: 50%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.card-3 {
+  bottom: 10%;
+  left: 30%;
+  animation-delay: 4s;
+}
+
+.card-icon {
+  font-size: 32px;
+}
+
+.card-text {
+  font-size: 14px;
+  color: var(--binance-text-secondary);
+  font-weight: 600;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Stats Section */
+.stats-section {
+  background: var(--binance-dark-secondary);
+  border-bottom: 1px solid var(--binance-border);
+  padding: 40px 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 24px;
+  background: var(--binance-dark-tertiary);
+  border: 1px solid var(--binance-border);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  border-color: var(--binance-yellow);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(240, 185, 11, 0.2);
+}
+
+.stat-value {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--binance-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Features Section */
+.features-section {
+  padding: 80px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--binance-text-primary);
+  margin-bottom: 16px;
+}
+
+.section-header p {
+  font-size: 18px;
+  color: var(--binance-text-secondary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--binance-dark-secondary);
+  border: 1px solid var(--binance-border);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--binance-yellow);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(240, 185, 11, 0.2);
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 0 auto 24px;
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--binance-text-primary);
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--binance-text-secondary);
+  line-height: 1.6;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  padding: 80px 24px;
+  background: var(--binance-dark-tertiary);
+  border-top: 1px solid var(--binance-border);
+  border-bottom: 1px solid var(--binance-border);
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.step-card {
+  background: var(--binance-dark-secondary);
+  border: 1px solid var(--binance-border);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  border-color: var(--binance-yellow);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(240, 185, 11, 0.2);
+}
+
+.step-number {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: var(--binance-yellow);
+  color: var(--binance-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.step-icon {
+  font-size: 48px;
+  margin: 24px 0 16px;
+}
+
+.step-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--binance-text-primary);
+  margin-bottom: 12px;
+}
+
+.step-card p {
+  font-size: 14px;
+  color: var(--binance-text-secondary);
+  line-height: 1.6;
+}
+
+.step-arrow {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  color: var(--binance-yellow);
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .step-arrow {
+    display: block;
+  }
+}
+
+/* Interactive Section */
+.interactive-section {
+  padding: 60px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--binance-text-primary);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(135deg, var(--binance-dark-secondary) 0%, var(--binance-dark-tertiary) 100%);
+  border: 1px solid var(--binance-border);
+  border-radius: 16px;
+  padding: 60px 40px;
+  margin: 60px auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--binance-text-primary);
+  margin-bottom: 16px;
+}
+
+.cta-content > p {
+  font-size: 18px;
+  color: var(--binance-text-secondary);
+  margin-bottom: 32px;
+}
+
+.cta-features {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.cta-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--binance-text-primary);
+  font-weight: 500;
+}
+
+.check-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--binance-success);
+  color: var(--binance-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.cta-note {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(240, 185, 11, 0.1);
+  border: 1px solid var(--binance-yellow);
+  border-radius: 8px;
+  color: var(--binance-text-secondary);
+}
+
+.cta-note strong {
+  color: var(--binance-yellow);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 24px;
+  }
+
+  .hero-visual {
+    width: 100%;
+    height: 300px;
+  }
+
+  .hero-title {
+    font-size: 42px;
+  }
+
+  .section-header h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .floating-card {
+    display: none;
+  }
+
+  .features-grid,
+  .steps-container {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-features {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

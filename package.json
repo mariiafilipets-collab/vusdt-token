@@ -1,0 +1,35 @@
+{
+  "name": "vusdt-token",
+  "version": "1.0.0",
+  "description": "VUSDT Token with weekly yield distribution on BNB Chain",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "check": "node scripts/check-setup.js",
+    "check-api": "node scripts/check-api-key.js",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network bscTestnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network bscMainnet",
+    "distribute": "hardhat run scripts/distribute-yield.js --network",
+    "node": "hardhat node"
+  },
+  "keywords": [
+    "ethereum",
+    "bnb-chain",
+    "token",
+    "yield",
+    "defi"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.3.1"
+  }
+}
+

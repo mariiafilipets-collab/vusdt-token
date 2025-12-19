@@ -1,0 +1,245 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "processing": "Processing...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "close": "Close"
+  },
+  "nav": {
+    "brand": "VUSDT",
+    "earnApy": "Earn up to 12% APY Weekly"
+  },
+  "hero": {
+    "badge": "Earn Passive Income",
+    "title": "Join <1>1.2M+</1> Holders<br/>Earning <1>{{apy}}% APY</1> Weekly",
+    "subtitle": "The most trusted yield-generating token on BNB Smart Chain.<br/><strong>Over $342M distributed</strong> to holders. No staking required. Just hold and earn automatically every Friday.",
+    "stats": {
+      "activeUsers": "Active Users",
+      "annualApy": "Annual APY",
+      "distributed": "Distributed",
+      "fees": "Fees"
+    },
+    "cards": {
+      "compoundInterest": "Compound Interest",
+      "autoDistribution": "Auto Distribution",
+      "secureSafe": "Secure & Safe"
+    }
+  },
+  "stats": {
+    "totalSupply": "Total Supply",
+    "activeHolders": "Active Holders",
+    "totalDistributed": "Total Distributed",
+    "transactions": "Transactions",
+    "weeklyYield": "Weekly Yield",
+    "annualApy": "Annual APY"
+  },
+  "features": {
+    "title": "Why Choose VUSDT?",
+    "subtitle": "Experience the future of passive income with our innovative yield distribution system",
+    "automaticDistribution": {
+      "title": "Automatic Distribution",
+      "description": "Yield is automatically distributed every Friday at 00:00 UTC. No manual actions required."
+    },
+    "compoundInterest": {
+      "title": "Compound Interest",
+      "description": "Your yield compounds weekly, meaning you earn interest on your interest. Maximize your returns!"
+    },
+    "fullyDecentralized": {
+      "title": "Fully Decentralized",
+      "description": "Built on BNB Smart Chain with audited smart contracts. Your funds are secure and transparent."
+    },
+    "noLockup": {
+      "title": "No Lock-up Period",
+      "description": "Transfer your tokens anytime. No staking, no locking, no restrictions. Complete freedom."
+    },
+    "lowGasFees": {
+      "title": "Low Gas Fees",
+      "description": "BNB Smart Chain offers extremely low transaction fees. Keep more of your earnings."
+    },
+    "easyToUse": {
+      "title": "Easy to Use",
+      "description": "Simple interface, connect your wallet and start earning. No complex DeFi protocols to navigate."
+    }
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "subtitle": "Start earning passive income in just 4 simple steps",
+    "step1": {
+      "title": "Get VUSDT Tokens",
+      "description": "Receive VUSDT tokens in your wallet. You can get them from other holders or through distribution."
+    },
+    "step2": {
+      "title": "Register as Holder",
+      "description": "Register your wallet address to become eligible for weekly yield distribution."
+    },
+    "step3": {
+      "title": "Hold & Earn",
+      "description": "Simply hold your tokens. Every Friday at 00:00 UTC, yield is automatically distributed to your wallet."
+    },
+    "step4": {
+      "title": "Compound Growth",
+      "description": "Your balance grows weekly with compound interest. The more you hold, the more you earn!"
+    }
+  },
+  "balance": {
+    "title": "Your VUSDT Balance",
+    "titleNotConnected": "Your Balance",
+    "notConnected": "Please connect your wallet to view your balance",
+    "notRegistered": "You have tokens but are not registered for yield distribution.",
+    "notRegisteredWarning": "⚠️ Please ensure you are connected to BSC Testnet",
+    "registerButton": "Register for Yield",
+    "registering": "Registering...",
+    "registered": "Registered for weekly yield distribution",
+    "connectWalletFirst": "Please connect your wallet first",
+    "contractNotLoaded": "Contract not loaded. Please ensure you are on BSC Testnet and refresh the page.",
+    "transactionSent": "Transaction sent: {{hash}}. Waiting for confirmation...",
+    "successfullyRegistered": "Successfully registered! Block: {{block}}",
+    "failedToRegister": "Failed to register. {{reason}}"
+  },
+  "yieldInfo": {
+    "title": "Yield Information",
+    "annualApy": "Annual APY",
+    "weeklyRate": "Weekly Rate",
+    "distribution": "Distribution:",
+    "distributionTime": "Every Friday at 00:00 UTC",
+    "registeredHolders": "Registered Holders:",
+    "yourNextYield": "Your Next Yield:",
+    "basedOnBalance": "Based on your current balance of {{balance}} VUSDT"
+  },
+  "purchase": {
+    "title": "Purchase VUSDT",
+    "description": "Buy VUSDT with USDT at 1:1 rate. Your USDT will be sent to the central wallet.",
+    "usdtBalance": "Your USDT Balance:",
+    "approved": "Approved:",
+    "amountLabel": "Amount of USDT to spend",
+    "youWillReceive": "You will receive {{amount}} VUSDT (1:1 rate)",
+    "needApproval": "You need to approve USDT spending first",
+    "approveButton": "Approve USDT",
+    "purchaseButton": "Purchase {{amount}} VUSDT",
+    "notConfigured": "Purchase contract is not configured yet. Contact administrator to set up purchase functionality.",
+    "connectWallet": "Please connect your wallet to purchase VUSDT",
+    "wrongNetwork": "Please switch to BSC Testnet to purchase VUSDT"
+  },
+  "conversion": {
+    "title": "Convert VUSDT to USDT",
+    "description": "Convert your VUSDT back to USDT. Conversion takes 14 days.",
+    "noYieldWarning": "No yield will be earned on locked tokens during this period.",
+    "vusdtBalance": "Your VUSDT Balance:",
+    "lockedInConversion": "Locked in Conversion:",
+    "available": "Available:",
+    "amountLabel": "Amount of VUSDT to convert",
+    "youWillReceive": "You will receive {{amount}} USDT after 14 days (1:1 rate)",
+    "requestButton": "Request Conversion",
+    "cancelButton": "Cancel Request",
+    "yourRequests": "Your Conversion Requests",
+    "noRequests": "No conversion requests found",
+    "requestId": "Request #{{id}}",
+    "status": "Status:",
+    "amount": "Amount:",
+    "requestedAt": "Requested:",
+    "remainingTime": "Remaining:",
+    "statusPending": "Pending",
+    "statusProcessing": "Processing",
+    "statusCompleted": "Completed",
+    "statusCancelled": "Cancelled",
+    "connectWallet": "Please connect your wallet to convert VUSDT",
+    "wrongNetwork": "Please switch to BSC Testnet to convert VUSDT"
+  },
+  "transfer": {
+    "title": "Transfer VUSDT",
+    "titleNotConnected": "Transfer Tokens",
+    "notConnected": "Please connect your wallet to transfer tokens",
+    "recipientLabel": "Recipient Address",
+    "recipientPlaceholder": "0x...",
+    "amountLabel": "Amount (VUSDT)",
+    "amountPlaceholder": "0.0",
+    "transferButton": "Transfer VUSDT",
+    "connectWallet": "Please connect your wallet",
+    "fillAllFields": "Please fill in all fields",
+    "invalidAddress": "Invalid recipient address",
+    "transactionSent": "Transaction sent: {{hash}}",
+    "transferSuccessful": "Transfer successful! Block: {{block}}",
+    "transferFailed": "Transfer failed"
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "notOwner": "You are not the contract owner",
+    "connectedAccount": "Connected Account:",
+    "contractOwner": "Contract Owner:",
+    "deployerAddress": "Deployer Address:",
+    "recheckButton": "Re-check Ownership",
+    "distributionStatus": "Distribution Status",
+    "weeklyYieldRate": "Weekly Yield Rate",
+    "status": "Status:",
+    "statusActive": "Active",
+    "statusPaused": "Paused",
+    "canDistribute": "Can Distribute:",
+    "canDistributeYes": "Yes",
+    "canDistributeNo": "No",
+    "lastDistribution": "Last Distribution:",
+    "holderCount": "Holder Count:",
+    "yieldRateSettings": "Weekly Yield Rate Settings",
+    "changeRate": "Change Rate",
+    "newRateLabel": "New Weekly Yield Rate (%)",
+    "currentRate": "Current: {{rate}}%",
+    "rateHint": "Range: 0% - 10% (e.g., 0.22 for 0.22% weekly = ~12% APY)",
+    "updateButton": "Update Yield Rate",
+    "updating": "Updating...",
+    "yieldDistribution": "Yield Distribution",
+    "distributeButton": "Distribute Yield",
+    "pauseButton": "Pause Distribution",
+    "resumeButton": "Resume Distribution",
+    "conversionRequests": "Conversion Requests Management",
+    "noRequests": "No conversion requests",
+    "requestId": "Request #{{id}}",
+    "requester": "Requester:",
+    "amount": "Amount:",
+    "requestedAt": "Requested:",
+    "lockedUntil": "Locked Until:",
+    "status": "Status:",
+    "statusPending": "Pending",
+    "statusProcessing": "Processing",
+    "statusCompleted": "Completed",
+    "statusCancelled": "Cancelled",
+    "processButton": "Process Request",
+    "completeButton": "Complete Request",
+    "cancelButton": "Cancel Request",
+    "completeConfirm": "Complete conversion for request #{{id}}? Make sure you have manually transferred USDT to the requester.",
+    "cancelConfirm": "Cancel request #{{id}}? Tokens will be returned to the requester.",
+    "transactionSent": "Transaction sent: {{hash}}",
+    "yieldDistributed": "Yield distributed! Block: {{block}}",
+    "yieldRateUpdated": "Yield rate updated to {{rate}}%! Block: {{block}}",
+    "distributionPaused": "Distribution paused",
+    "distributionResumed": "Distribution resumed",
+    "requestProcessed": "Request #{{id}} marked as processing",
+    "requestCompleted": "Request #{{id}} completed",
+    "requestCancelled": "Request #{{id}} cancelled",
+    "failed": "Failed"
+  },
+  "cta": {
+    "title": "Ready to Start Earning?",
+    "subtitle": "Join <1>1.2 million+</1> holders earning passive income with VUSDT",
+    "noMinimum": "No minimum deposit",
+    "noLockup": "No lock-up period",
+    "automatic": "Automatic payments",
+    "proTip": "💡 <1>Pro Tip:</1> The earlier you start, the more you earn through compound interest!"
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "disconnect": "Disconnect",
+    "address": "Address:",
+    "network": "Network:",
+    "switchToTestnet": "Switch to Testnet",
+    "wrongNetwork": "Wrong Network",
+    "bscTestnet": "BSC Testnet",
+    "bscMainnet": "BSC Mainnet"
+  },
+  "dashboard": {
+    "title": "Your Dashboard"
+  }
+}
+

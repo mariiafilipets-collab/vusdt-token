@@ -1,0 +1,15 @@
+{
+  "network": "bscTestnet",
+  "chainId": 97,
+  "deployer": "0x8973987BF03AeA074daB64a98fe13D2538C1302b",
+  "contracts": {
+    "VUSDT": "0x9F9A9EDA46287a1Cd1EeE9677a32E16D00806d8B",
+    "YieldDistributor": "0x0a9215946Aff1becF11A71D199aeDfe741CDBEfb",
+    "VUSDTPurchase": "0xb07D6AA297901355Fc3cBe0cD30F4357a9776156",
+    "ConversionRequest": "0xcB2A6F482EbEBF8a13049Be226FB16eB841cd77d"
+  },
+  "centralWallet": "0x8973987BF03AeA074daB64a98fe13D2538C1302b",
+  "treasuryWallet": "0x8973987BF03AeA074daB64a98fe13D2538C1302b",
+  "usdtToken": "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd",
+  "timestamp": "2025-12-19T10:45:00.000Z"
+}
