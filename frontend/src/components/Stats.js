@@ -7,8 +7,8 @@ const Stats = () => {
   const { t } = useTranslation();
   const { vusdtContract, yieldDistributorContract } = useWeb3();
   const [stats, setStats] = useState({
-    totalSupply: '2,847,392',
-    holders: 1247583,
+    totalSupply: '1,500,000,000', // Fixed: 1.5B total supply
+    holders: 1200000, // Fixed: 1.2M active holders
     weeklyYield: '0.22',
     annualAPY: '12',
     totalDistributed: '342,156',
@@ -25,27 +25,10 @@ const Stats = () => {
 
   const loadRealStats = async () => {
     try {
-      if (vusdtContract) {
-        const supply = await vusdtContract.totalSupply();
-        const formattedSupply = parseFloat(ethers.formatEther(supply));
-        // Show real supply if available, otherwise use marketing numbers
-        if (formattedSupply > 0) {
-          setStats(prev => ({
-            ...prev,
-            totalSupply: formattedSupply.toLocaleString(undefined, { maximumFractionDigits: 0 })
-          }));
-        }
-      }
+      // Keep fixed marketing numbers for totalSupply (1.5B) and holders (1.2M)
+      // Only update yield rates from contract
       if (yieldDistributorContract) {
-        const holders = await yieldDistributorContract.getHolderCount();
         const yieldRate = await yieldDistributorContract.weeklyYieldRateBps();
-        // Show real holders if available, otherwise use marketing numbers
-        if (Number(holders) > 0) {
-          setStats(prev => ({
-            ...prev,
-            holders: Number(holders)
-          }));
-        }
         setStats(prev => ({
           ...prev,
           weeklyYield: (Number(yieldRate) / 100).toFixed(2),
@@ -74,13 +57,13 @@ const Stats = () => {
       <div className="stats-grid">
         <div className="stat-item">
           <div className="stat-value" style={{ color: 'var(--binance-yellow)' }}>
-            {formatNumber(stats.totalSupply)} VUSDT
+            1.5B VUSDT
           </div>
           <div className="stat-label">{t('stats.totalSupply')}</div>
         </div>
         <div className="stat-item">
           <div className="stat-value" style={{ color: 'var(--binance-success)' }}>
-            {formatNumber(stats.holders)}
+            1.2M
           </div>
           <div className="stat-label">{t('stats.activeHolders')}</div>
         </div>

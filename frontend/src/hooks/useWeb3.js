@@ -29,6 +29,7 @@ const YIELD_DISTRIBUTOR_ABI = [
   "function canDistribute() view returns (bool)",
   "function calculateYield(uint256 balance) view returns (uint256)",
   "function getHolderCount() view returns (uint256)",
+  "function getHolder(uint256 index) view returns (address)",
   "function isRegisteredHolder(address) view returns (bool)",
   "function registerHolders(address[] addresses)",
   "function distributeYield()",

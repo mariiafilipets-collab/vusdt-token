@@ -13,6 +13,9 @@ const AdminPanel = () => {
   const [showYieldRateForm, setShowYieldRateForm] = useState(false);
   const [conversionRequests, setConversionRequests] = useState([]);
   const [conversionContract, setConversionContract] = useState(null);
+  const [holders, setHolders] = useState([]);
+  const [loadingHolders, setLoadingHolders] = useState(false);
+  const [showHolders, setShowHolders] = useState(false);
 
   const CONVERSION_CONTRACT_ADDRESS = process.env.REACT_APP_CONVERSION_CONTRACT_ADDRESS || '';
   
@@ -241,6 +244,71 @@ const AdminPanel = () => {
     }
   };
 
+  const loadHolders = async () => {
+    if (!yieldDistributorContract || !vusdtContract) return;
+    
+    setLoadingHolders(true);
+    try {
+      const holderCount = await yieldDistributorContract.getHolderCount();
+      const count = Number(holderCount);
+      
+      if (count === 0) {
+        setHolders([]);
+        setLoadingHolders(false);
+        return;
+      }
+
+      // Load holders in batches to avoid RPC limits
+      const batchSize = 50;
+      const holdersList = [];
+      
+      for (let i = 0; i < count; i += batchSize) {
+        const end = Math.min(i + batchSize, count);
+        const batch = [];
+        
+        for (let j = i; j < end; j++) {
+          try {
+            const holderAddress = await yieldDistributorContract.getHolder(j);
+            batch.push(holderAddress);
+          } catch (error) {
+            console.error(`Error loading holder ${j}:`, error);
+          }
+        }
+        
+        // Get balances for this batch
+        const balancePromises = batch.map(address => 
+          vusdtContract.balanceOf(address).catch(() => ethers.parseEther('0'))
+        );
+        const balances = await Promise.all(balancePromises);
+        
+        // Combine addresses with balances
+        batch.forEach((address, index) => {
+          const balance = parseFloat(ethers.formatEther(balances[index]));
+          if (balance > 0) {
+            holdersList.push({
+              address,
+              balance,
+              balanceFormatted: balance.toLocaleString(undefined, { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 6 
+              })
+            });
+          }
+        });
+      }
+      
+      // Sort by balance (descending)
+      holdersList.sort((a, b) => b.balance - a.balance);
+      
+      setHolders(holdersList);
+    } catch (error) {
+      console.error('Error loading holders:', error);
+      setStatus({ type: 'error', message: 'Failed to load holders: ' + (error.message || 'Unknown error') });
+    } finally {
+      setLoadingHolders(false);
+    }
+  };
+
   if (!isConnected) {
     return null;
   }
@@ -423,6 +491,135 @@ const AdminPanel = () => {
             </button>
           )}
         </div>
+      </div>
+
+      {/* Holders Management */}
+      <div style={{ 
+        marginTop: '20px',
+        padding: '16px',
+        background: 'var(--binance-dark-tertiary)',
+        borderRadius: '4px',
+        border: '1px solid var(--binance-border)'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <h3 style={{ margin: 0, fontSize: '16px', color: 'var(--binance-text-primary)' }}>
+            Token Holders ({holders.length > 0 ? holders.length : distributorInfo?.holderCount || 0})
+          </h3>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              className="button button-secondary"
+              onClick={loadHolders}
+              disabled={loadingHolders || !yieldDistributorContract || !vusdtContract}
+              style={{ fontSize: '12px', padding: '8px 16px' }}
+            >
+              {loadingHolders ? 'Loading...' : 'Load Holders'}
+            </button>
+            {holders.length > 0 && (
+              <button
+                className="button button-secondary"
+                onClick={() => setShowHolders(!showHolders)}
+                style={{ fontSize: '12px', padding: '8px 16px' }}
+              >
+                {showHolders ? 'Hide' : 'Show'} List
+              </button>
+            )}
+          </div>
+        </div>
+        
+        {loadingHolders && (
+          <p style={{ color: 'var(--binance-text-secondary)', fontSize: '14px', textAlign: 'center', padding: '20px' }}>
+            Loading holders...
+          </p>
+        )}
+        
+        {!loadingHolders && holders.length === 0 && (
+          <p style={{ color: 'var(--binance-text-secondary)', fontSize: '14px', textAlign: 'center', padding: '20px' }}>
+            Click "Load Holders" to view all token holders with their balances
+          </p>
+        )}
+        
+        {showHolders && holders.length > 0 && (
+          <div style={{ 
+            maxHeight: '500px', 
+            overflowY: 'auto',
+            border: '1px solid var(--binance-border)',
+            borderRadius: '4px',
+            background: 'var(--binance-dark-secondary)'
+          }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+              <thead>
+                <tr style={{ 
+                  background: 'var(--binance-dark-tertiary)',
+                  borderBottom: '2px solid var(--binance-border)',
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 10
+                }}>
+                  <th style={{ padding: '12px', textAlign: 'left', color: 'var(--binance-text-primary)', fontWeight: '600' }}>
+                    #
+                  </th>
+                  <th style={{ padding: '12px', textAlign: 'left', color: 'var(--binance-text-primary)', fontWeight: '600' }}>
+                    Address
+                  </th>
+                  <th style={{ padding: '12px', textAlign: 'right', color: 'var(--binance-text-primary)', fontWeight: '600' }}>
+                    Balance (VUSDT)
+                  </th>
+                  <th style={{ padding: '12px', textAlign: 'center', color: 'var(--binance-text-primary)', fontWeight: '600' }}>
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {holders.map((holder, index) => (
+                  <tr 
+                    key={holder.address}
+                    style={{ 
+                      borderBottom: '1px solid var(--binance-border)',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--binance-dark-tertiary)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <td style={{ padding: '12px', color: 'var(--binance-text-secondary)' }}>
+                      {index + 1}
+                    </td>
+                    <td style={{ padding: '12px', color: 'var(--binance-text-primary)', fontFamily: 'monospace', fontSize: '12px' }}>
+                      <a
+                        href={`https://bscscan.com/address/${holder.address}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--binance-yellow)', textDecoration: 'none' }}
+                        onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                        onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+                      >
+                        {holder.address.slice(0, 6)}...{holder.address.slice(-4)}
+                      </a>
+                    </td>
+                    <td style={{ padding: '12px', textAlign: 'right', color: 'var(--binance-success)', fontWeight: '600' }}>
+                      {holder.balanceFormatted}
+                    </td>
+                    <td style={{ padding: '12px', textAlign: 'center' }}>
+                      <a
+                        href={`https://bscscan.com/address/${holder.address}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ 
+                          color: 'var(--binance-info)', 
+                          textDecoration: 'none',
+                          fontSize: '12px'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                        onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+                      >
+                        View on BSCScan
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Conversion Requests Management */}
