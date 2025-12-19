@@ -111,9 +111,9 @@ export const useWeb3 = () => {
       setChainId(currentChainId);
       setIsConnected(true);
 
-      // Check if on correct network (BSC Testnet)
-      if (currentChainId !== BSC_TESTNET) {
-        console.warn(`Connected to chain ${currentChainId}, but contracts are on BSC Testnet (${BSC_TESTNET})`);
+      // Check if on correct network (BSC Mainnet)
+      if (currentChainId !== BSC_MAINNET) {
+        console.warn(`Connected to chain ${currentChainId}, but contracts are on BSC Mainnet (${BSC_MAINNET})`);
         // Don't initialize contracts if on wrong network
         return true;
       }

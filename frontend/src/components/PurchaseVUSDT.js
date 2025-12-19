@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 
 const PurchaseVUSDT = () => {
   const { t } = useTranslation();
-  const { account, isConnected, isBSCTestnet, signer } = useWeb3();
+  const { account, isConnected, isBSCMainnet, signer } = useWeb3();
   const [usdtAmount, setUsdtAmount] = useState('');
   const [usdtBalance, setUsdtBalance] = useState('0');
   const [usdtAllowance, setUsdtAllowance] = useState('0');

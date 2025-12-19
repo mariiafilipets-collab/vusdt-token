@@ -33,7 +33,7 @@ const WalletConnection = () => {
         <div>
           <p>Connect your MetaMask wallet to interact with VUSDT</p>
           <p style={{ fontSize: '14px', color: 'var(--binance-text-secondary)', marginTop: '10px' }}>
-            <strong>Note:</strong> Contracts are deployed on <strong>BSC Testnet</strong>
+            <strong>Note:</strong> Contracts are deployed on <strong>BNB Chain Mainnet</strong>
           </p>
           <button className="button" onClick={connectWallet}>
             Connect Wallet
@@ -55,24 +55,24 @@ const WalletConnection = () => {
           {!isBSC && (
             <div className="status status-error">
               <p><strong>Wrong Network!</strong></p>
-              <p>Please switch to <strong>BSC Testnet</strong> (Chain ID: 97)</p>
-              <button className="button" onClick={switchToBSCTestnet} style={{ marginTop: '10px' }}>
-                Switch to BSC Testnet
-              </button>
-            </div>
-          )}
-
-          {isBSCMainnet && (
-            <div className="status status-info">
-              <p><strong>⚠️ You are on BSC Mainnet</strong></p>
-              <p>Contracts are deployed on <strong>BSC Testnet</strong>. Please switch:</p>
-              <button className="button" onClick={switchToBSCTestnet} style={{ marginTop: '10px' }}>
-                Switch to BSC Testnet
+              <p>Please switch to <strong>BNB Chain Mainnet</strong> (Chain ID: 56)</p>
+              <button className="button" onClick={switchToBSCMainnet} style={{ marginTop: '10px' }}>
+                Switch to BNB Chain Mainnet
               </button>
             </div>
           )}
 
           {isBSCTestnet && (
+            <div className="status status-info">
+              <p><strong>⚠️ You are on BSC Testnet</strong></p>
+              <p>Contracts are deployed on <strong>BNB Chain Mainnet</strong>. Please switch:</p>
+              <button className="button" onClick={switchToBSCMainnet} style={{ marginTop: '10px' }}>
+                Switch to BNB Chain Mainnet
+              </button>
+            </div>
+          )}
+
+          {isBSCMainnet && (
             <div className="status status-success" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ 
                 width: '8px', 
@@ -82,7 +82,7 @@ const WalletConnection = () => {
                 display: 'inline-block'
               }}></span>
               <div>
-                <strong>Network: BSC Testnet</strong> (Chain ID: 97)
+                <strong>Network: BNB Chain Mainnet</strong> (Chain ID: 56)
                 <br />
                 <span style={{ fontSize: '12px', color: 'var(--binance-text-secondary)' }}>This is the correct network!</span>
               </div>

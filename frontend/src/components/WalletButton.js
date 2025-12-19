@@ -12,6 +12,7 @@ const WalletButton = () => {
     isBSCTestnet,
     isBSCMainnet,
     switchToBSCTestnet,
+    switchToBSCMainnet,
     chainId 
   } = useWeb3();
   const [showMenu, setShowMenu] = useState(false);
@@ -31,13 +32,13 @@ const WalletButton = () => {
 
   return (
     <div className="wallet-button-container">
-      {!isBSCTestnet && (
+      {!isBSCMainnet && (
         <button 
           className="wallet-button wallet-button-warning"
-          onClick={isBSCMainnet ? switchToBSCTestnet : connectWallet}
+          onClick={isBSCTestnet ? switchToBSCMainnet : connectWallet}
           style={{ marginRight: '8px' }}
         >
-          {isBSCMainnet ? t('wallet.switchToTestnet') : t('wallet.wrongNetwork')}
+          {isBSCTestnet ? 'Switch to Mainnet' : t('wallet.wrongNetwork')}
         </button>
       )}
       <div className="wallet-button-wrapper">
