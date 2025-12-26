@@ -60,21 +60,33 @@ const AdminPanel = () => {
   const loadDistributorInfo = async () => {
     if (!yieldDistributorContract) return;
     try {
-      const [yieldRate, lastDist, paused, canDist, holderCount] = await Promise.all([
+      const [yieldRate, lastDist, paused, canDist, holderCount, isFriday] = await Promise.all([
         yieldDistributorContract.weeklyYieldRateBps(),
         yieldDistributorContract.lastDistributionTime(),
         yieldDistributorContract.distributionPaused(),
         yieldDistributorContract.canDistribute(),
         yieldDistributorContract.getHolderCount().catch(() => 0),
+        yieldDistributorContract.isFriday().catch(() => false),
       ]);
+
+      const lastDistTime = Number(lastDist) * 1000;
+      const nextDistTime = lastDistTime + (7 * 24 * 60 * 60 * 1000);
+      const now = Date.now();
+      const timeUntilNext = nextDistTime - now;
+      const daysUntilNext = Math.floor(timeUntilNext / (24 * 60 * 60 * 1000));
+      const hoursUntilNext = Math.floor((timeUntilNext % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
 
       setDistributorInfo({
         yieldRate: Number(yieldRate) / 100,
         yieldRateBps: Number(yieldRate),
-        lastDistribution: new Date(Number(lastDist) * 1000).toLocaleString(),
+        lastDistribution: new Date(lastDistTime).toLocaleString(),
         paused,
         canDistribute: canDist,
         holderCount: Number(holderCount),
+        isFriday: isFriday,
+        daysUntilNext: daysUntilNext,
+        hoursUntilNext: hoursUntilNext,
+        nextDistributionTime: new Date(nextDistTime).toLocaleString(),
       });
     } catch (error) {
       // Silently handle RPC errors to avoid console spam
@@ -387,7 +399,40 @@ const AdminPanel = () => {
           fontSize: '13px',
           color: 'var(--binance-text-secondary)'
         }}>
-          <strong style={{ color: 'var(--binance-text-primary)' }}>Last Distribution:</strong> {distributorInfo.lastDistribution}
+          <div style={{ marginBottom: '8px' }}>
+            <strong style={{ color: 'var(--binance-text-primary)' }}>Last Distribution:</strong> {distributorInfo.lastDistribution}
+          </div>
+          {distributorInfo.nextDistributionTime && (
+            <div style={{ marginBottom: '8px' }}>
+              <strong style={{ color: 'var(--binance-text-primary)' }}>Next Distribution Available:</strong> {distributorInfo.nextDistributionTime}
+            </div>
+          )}
+          {!distributorInfo.canDistribute && (
+            <div style={{ 
+              marginTop: '12px',
+              padding: '10px',
+              background: distributorInfo.paused ? 'rgba(242, 153, 74, 0.1)' : 'rgba(242, 153, 74, 0.1)',
+              borderRadius: '4px',
+              border: '1px solid var(--binance-border)',
+              fontSize: '12px'
+            }}>
+              <strong style={{ color: 'var(--binance-warning)' }}>⚠️ Distribution Not Available:</strong>
+              <ul style={{ margin: '8px 0 0 0', paddingLeft: '20px' }}>
+                {distributorInfo.paused && (
+                  <li style={{ color: 'var(--binance-error)' }}>Distribution is paused. Click "Resume Distribution" to enable.</li>
+                )}
+                {!distributorInfo.paused && distributorInfo.daysUntilNext > 0 && (
+                  <li>Wait {distributorInfo.daysUntilNext} day(s) and {distributorInfo.hoursUntilNext} hour(s) until next distribution is available.</li>
+                )}
+                {!distributorInfo.paused && distributorInfo.daysUntilNext === 0 && distributorInfo.hoursUntilNext > 0 && (
+                  <li>Wait {distributorInfo.hoursUntilNext} hour(s) until next distribution is available.</li>
+                )}
+                {distributorInfo.isFriday !== undefined && (
+                  <li>Today is {distributorInfo.isFriday ? 'Friday ✓' : 'not Friday'} (UTC timezone)</li>
+                )}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 

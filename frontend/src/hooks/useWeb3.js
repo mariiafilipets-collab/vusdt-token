@@ -27,6 +27,7 @@ const YIELD_DISTRIBUTOR_ABI = [
   "function lastDistributionTime() view returns (uint256)",
   "function distributionPaused() view returns (bool)",
   "function canDistribute() view returns (bool)",
+  "function isFriday() view returns (bool)",
   "function calculateYield(uint256 balance) view returns (uint256)",
   "function getHolderCount() view returns (uint256)",
   "function getHolder(uint256 index) view returns (address)",

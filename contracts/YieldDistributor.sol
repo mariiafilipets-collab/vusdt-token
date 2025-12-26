@@ -103,14 +103,18 @@ contract YieldDistributor is Ownable, ReentrancyGuard {
     }
 
     /**
-     * @dev Checks if it's Friday 00:00 UTC (within 24 hour window)
+     * @dev Checks if it's Friday (UTC)
      * @return bool True if it's Friday
+     * @notice Unix epoch (Jan 1, 1970 00:00:00 UTC) was a Thursday
+     *         Day 0 = Thursday, Day 1 = Friday, ..., Day 6 = Wednesday
      */
     function isFriday() public view returns (bool) {
-        // UTC day of week: 0 = Sunday, 5 = Friday
-        // block.timestamp is in UTC
-        uint256 dayOfWeek = (block.timestamp / SECONDS_PER_WEEK + 4) % 7;
-        return dayOfWeek == 5; // Friday
+        // Unix epoch: January 1, 1970, 00:00:00 UTC = Thursday
+        // Calculate days since epoch
+        uint256 daysSinceEpoch = block.timestamp / 86400; // 86400 seconds per day
+        // Day of week: 0 = Thursday, 1 = Friday, 2 = Saturday, ..., 6 = Wednesday
+        uint256 dayOfWeek = (daysSinceEpoch + 4) % 7;
+        return dayOfWeek == 1; // Friday
     }
 
     /**
@@ -120,6 +124,9 @@ contract YieldDistributor is Ownable, ReentrancyGuard {
     function canDistribute() public view returns (bool) {
         if (distributionPaused) return false;
         if (block.timestamp < lastDistributionTime + SECONDS_PER_WEEK) return false;
+        // Optional: Only allow distribution on Friday (can be removed if not needed)
+        // Uncomment the line below to restrict distribution to Fridays only
+        // if (!isFriday()) return false;
         return true;
     }
 
