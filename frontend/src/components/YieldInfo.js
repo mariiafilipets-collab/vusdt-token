@@ -8,7 +8,6 @@ const YieldInfo = () => {
   const { account, vusdtContract, yieldDistributorContract, isConnected } = useWeb3();
   const [balance, setBalance] = useState('0');
   const [nextYield, setNextYield] = useState('0');
-  const [holderCount, setHolderCount] = useState(0);
   const [weeklyYieldRate, setWeeklyYieldRate] = useState('0.22');
   const [annualAPY, setAnnualAPY] = useState('12');
 
@@ -37,9 +36,6 @@ const YieldInfo = () => {
       if (yieldDistributorContract) {
         const yieldAmount = await yieldDistributorContract.calculateYield(bal);
         setNextYield(ethers.formatEther(yieldAmount));
-        
-        const count = await yieldDistributorContract.getHolderCount();
-        setHolderCount(Number(count));
         
         // Load current yield rate
         const yieldRateBps = await yieldDistributorContract.weeklyYieldRateBps();
@@ -71,8 +67,7 @@ const YieldInfo = () => {
           </div>
         </div>
         <div style={{ padding: '16px', background: 'var(--binance-dark-tertiary)', borderRadius: '4px', border: '1px solid var(--binance-border)' }}>
-          <p style={{ marginBottom: '8px', color: 'var(--binance-text-secondary)' }}><strong style={{ color: 'var(--binance-text-primary)' }}>{t('yieldInfo.distribution')}</strong> {t('yieldInfo.distributionTime')}</p>
-          <p style={{ color: 'var(--binance-text-secondary)' }}><strong style={{ color: 'var(--binance-text-primary)' }}>{t('yieldInfo.registeredHolders')}</strong> {holderCount}</p>
+          <p style={{ margin: 0, color: 'var(--binance-text-secondary)' }}><strong style={{ color: 'var(--binance-text-primary)' }}>{t('yieldInfo.distribution')}</strong> {t('yieldInfo.distributionTime')}</p>
         </div>
       </div>
       
